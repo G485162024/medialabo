@@ -1,3 +1,16 @@
-h1{
+body{
+    background-color: whitesmoke  
+    
+}
+h1,h2,h3{
+    color: rgb(0, 72, 255);
+}
+a:link,
+a:visited {
+    color: blue;
+}
+
+a:hover {
+    text-decoration: none;
     color: red;
 }

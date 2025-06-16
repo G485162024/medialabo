@@ -1,16 +1,96 @@
-body{
-    background-color: whitesmoke  
-    
-}
-h1,h2,h3{
-    color: rgb(0, 72, 255);
-}
-a:link,
-a:visited {
-    color: blue;
-}
-
-a:hover {
+/* 基本設定 */
+body {
+    background-color: #f9f9f9;
+    font-family: "Segoe UI", "ヒラギノ角ゴ ProN", "メイリオ", sans-serif;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0 1em;
+  }
+  
+  /* ヘッダー */
+  h1 {
+    color: #1a237e;
+    text-align: center;
+    margin-top: 1em;
+    border-bottom: 2px solid #1a237e;
+    padding-bottom: 0.5em;
+  }
+  
+  h2 {
+    color: #303f9f;
+    border-left: 5px solid #3f51b5;
+    padding-left: 0.5em;
+    margin-top: 2em;
+  }
+  
+  h3 {
+    color: #3f51b5;
+    margin-top: 1.5em;
+  }
+  
+  /* 段落とリスト */
+  p, ol {
+    max-width: 800px;
+    margin: 0 auto 1.5em auto;
+  }
+  
+  ol {
+    padding-left: 1.5em;
+  }
+  
+  /* リンク */
+  a:link, a:visited {
+    color: #1565c0;
+    text-decoration: underline;
+    transition: 0.3s;
+  }
+  
+  a:hover {
+    color: #e53935;
     text-decoration: none;
-    color: red;
-}
+  }
+  
+  .special {
+    color: #d32f2f;
+    font-family: monospace;
+    background-color: #fbe9e7;
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+  
+  /* 各授業回のセクション */
+  #zentai {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1em;
+    padding: 1em 0;
+  }
+  
+  #zentai > div {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-left: 5px solid #3f51b5;
+    padding: 1em;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  #zentai > div:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* メディア対応 */
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 1.5em;
+    }
+    h2 {
+      font-size: 1.2em;
+    }
+    h3 {
+      font-size: 1em;
+    }
+  }

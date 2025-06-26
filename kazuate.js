@@ -1,52 +1,44 @@
-// 答え
-let kotae = Math.floor(Math.random()*10) + 1;
+// ランダムな答えを生成
+let kotae = Math.floor(Math.random() * 10) + 1;
 console.log('答え（デバッグ用）: ' + kotae);
 
-// 入力回数（予想回数）
+// 入力回数
 let kaisu = 0;
-
 let gameOver = false;
 
-// 予想を4回実行する
-// 将来以下の hantei(); の4回の呼び出しを全て削除する
-// 代わりにここでは，ボタンを押したら hantei() を呼び出すイベント処理をする
-hantei();
-hantei();
-hantei();
-hantei();
+// ボタンにイベントハンドラを設定
+let button = document.querySelector('#kaito');
+button.addEventListener('click', hantei);
 
-// ボタンを押した後の処理をする関数 hantei() の定義
+// 判定関数
 function hantei() {
   if (gameOver || kaisu >= 4) {
-    console.log(`答えは ${kotae} でした。すでにゲームは終わっています`);
-    gameOver = true;
+    document.querySelector('#result').textContent = `答えは ${kotae} でした。すでにゲームは終わっています`;
     return;
   }
 
+  // 回数を1増やす
   kaisu++;
+  document.querySelector('#kaisu').textContent = kaisu;
 
-  // 将来ここでは 4 ではなくテキストボックスに指定された数値を yoso に代入する  
-  let yoso = 4;
-  console.log(`${kaisu}回目の予想: ${yoso}`);
+  // 入力値を取得して整数に変換
+  let input = document.querySelector('#yoso');
+  let yoso = parseInt(input.value, 10);
 
-  // 課題3-1: 正解判定する
-  // kotae と yoso が一致するかどうか調べて結果を出力
-  // 課題3-1における出力先はコンソール
+  // 入力値を表示
+  document.querySelector('#answer').textContent = yoso;
+
+  // 判定と出力
+  let result = document.querySelector('#result');
   if (yoso === kotae) {
-    console.log('正解です．おめでとう!');
+    result.textContent = '正解です．おめでとう!';
     gameOver = true;
-    kaisu = 4;
-    return;
-  }
-
-  if (kaisu >= 4) {
-    console.log(`答えは ${kotae} でした。すでにゲームは終わっています`);
+  } else if (kaisu >= 3) {
+    result.textContent = `まちがい。残念でした答えは ${kotae} です。`;
     gameOver = true;
-  } else if (kaisu === 3) {
-    console.log(`まちがい。残念でした答えは ${kotae} です。`);
   } else if (yoso < kotae) {
-    console.log('まちがい。答えはもっと大きいですよ');
+    result.textContent = 'まちがい。答えはもっと大きいですよ';
   } else {
-    console.log('まちがい。答えはもっと小さいですよ');
+    result.textContent = 'まちがい。答えはもっと小さいですよ';
   }
 }

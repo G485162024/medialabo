@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <title>My test page</title>
     <script src="tv-program.js" defer></script>
-
   </head>
   <body>
     <h1>番組表の検索結果</h1> 
@@ -27,5 +26,30 @@
       <li>サブタイトル: パラスポーツの魅力をアニメで伝える番組。高速滑走に挑む精神力が試されるパラアルペンスキーを描く。キャラ原案：江口寿史／曲：Ａｗｅｓｏｍｅ　Ｃｉｔｙ　Ｃｌｕｂ</li>
       <li>出演者: 【声】松本まりか，【出演】Ａｗｅｓｏｍｅ　Ｃｉｔｙ　Ｃｌｕｂ，【監督】西村一彦，【脚本】加納新太，【原案】江口寿史</li>
     </ul>
-  </body>
+
+<fieldset>
+    <legend>チャンネルを選択</legend>
+    <label><input type="checkbox" name="channel" value="g1"> NHK総合1</label><br>
+    <label><input type="checkbox" name="channel" value="g2"> Eテレ1</label>
+  </fieldset>
+<fieldset>
+    <legend>ジャンルを選択</legend>
+    <label><input type="checkbox" name="genre" value="0000"> ニュース・報道</label><br>
+    <label><input type="checkbox" name="genre" value="0100"> スポーツ</label><br>
+    <label><input type="checkbox" name="genre" value="0205"> 情報・ワイドショー</label><br>
+    <label><input type="checkbox" name="genre" value="0300"> ドラマ</label><br>
+    <label><input type="checkbox" name="genre" value="0409"> 音楽</label><br>
+    <label><input type="checkbox" name="genre" value="0502"> バラエティ</label><br>
+    <label><input type="checkbox" name="genre" value="0600"> 映画</label><br>
+    <label><input type="checkbox" name="genre" value="0700"> アニメ</label><br>
+    <label><input type="checkbox" name="genre" value="0800"> ドキュメンタリー・教養</label><br>
+    <label><input type="checkbox" name="genre" value="0903"> 劇場・公演</label><br>
+    <label><input type="checkbox" name="genre" value="1000"> 趣味・教育</label><br>
+    <label><input type="checkbox" name="genre" value="1100"> 福祉</label>
+  </fieldset>
+
+  <button id="btn">検索</button>
+
+  <div id="result"></div>
+</body>
 </html>

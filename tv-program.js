@@ -12,9 +12,52 @@ function print(data) {
   console.log(data.list.g1[1].subtitle);
   console.log(data.list.g1[1].act);
 }
+function printDom() {
+  
+}
 
 // 課題5-1 の関数 printDom() はここに記述すること
 function printDom(data) {
+
+function printDom(data) {
+  const old = document.getElementById('result');
+  if (old) {
+    old.remove();
+  }
+  
+  const result = document.createElement('div');
+  result.id = 'result';
+  document.body.appendChild(result);
+
+  const count = data.list.g1.length;
+  const h3 = document.createElement('h3');
+  h3.textContent = `検索結果は ${count} 件`;
+  result.appendChild(h3);
+
+  data.list.g1.forEach((item, index) => {
+
+    const fs = document.createElement('fieldset');
+    const legend = document.createElement('legend');
+    legend.textContent = `検索結果 ${index + 1} 件目`;
+    fs.appendChild(legend);
+
+    function addLine(label, text) {
+      const p = document.createElement('p');
+      p.textContent = `${label}: ${text}`;
+      fs.appendChild(p);
+    }
+
+    const toLocalString = s => new Date(s).toLocaleString();
+
+    addLine('開始時刻', toLocalString(item.start_time));
+    addLine('終了時刻', toLocalString(item.end_time));
+    addLine('タイトル', item.title);
+    addLine('サブタイトル', item.subtitle);
+    addLine('出演者', item.act || '記載なし');
+
+    result.appendChild(fs);
+  });
+}
 
 }
 

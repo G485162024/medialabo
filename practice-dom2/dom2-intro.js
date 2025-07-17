@@ -14,7 +14,7 @@ function changeDom() {
     let p = document.querySelector('p#takudai'); 
     p.insertAdjacentElement('afterend', a);
 
-    //もちを削除
+    //餅を削除
     l = document.querySelector('li#mochi'); 
     l.remove(); 
     //kassanを削除

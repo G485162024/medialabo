@@ -11,9 +11,6 @@ function print(data) {
   console.log(data.list.g1[1].subtitle);
   console.log(data.list.g1[1].act);
 }
-function printDom() {
-  
-}
 
 // 課題5-1 の関数 printDom() はここに記述すること
 function printDom(data) {
@@ -61,9 +58,10 @@ function printDom(data) {
 }
 
 // 課題6-1 のイベントハンドラ登録処理は以下に記述
-
-
-
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('btn');
+  btn.addEventListener('click', sendRequest);
+});
 
 // 課題6-1 のイベントハンドラ sendRequest() の定義
 function sendRequest() {
@@ -74,6 +72,7 @@ function sendRequest() {
         .catch(showError)
         .then(finish);
 }
+
 // 課題6-1: 通信が成功した時の処理は以下に記述
 function showResult(resp) {
     let data = resp.data;
@@ -96,12 +95,6 @@ function showError(err) {
 function finish() {
     console.log('Ajax 通信が終わりました');
 }
-
-//怪しい所
-document.addEventListener('DOMContentLoaded', () => {
-  const btn = document.getElementById('btn');
-  btn.addEventListener('click', sendRequest);
-});
 
 ////////////////////////////////////////
 // 以下はテレビ番組表のデータサンプル

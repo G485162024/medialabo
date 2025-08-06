@@ -1,43 +1,45 @@
 p {
-	color: navy;
+  color: navy;
 }
 
 p.info {
-	font-size: small;
-	background-color: #dfdfdf;
+  font-size: small;
+  background-color: #dfdfdf;
 }
 
 h1 {
-	color: white;
-	text-shadow: 2px 2px 0 navy;  }
-  
+  color: white;
+  text-shadow: 2px 2px 0 navy;
+}
 
 h2 {
-	border: solid 1px black;
-	margin: 5px;
-	font-family: cursive;
-	color: #3f3faf;
-	background: linear-gradient(white, #ffefaf);
+  margin: 5px;
+  font-family: cursive;
+  color: #3f3faf;
+  background: linear-gradient(to right, white, #ffefaf); /* 横向きグラデーション */
+  border: none;
 }
 
 div#zentai {
-	display: grid;
-	grid-template-columns: 1fr 1fr ;
-	grid-auto-rows: 200px 200px;
-	grid-gap: 10px;
-	padding: 5px 5px 5px 5px
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 200px;
+  column-gap: 10px;
+  row-gap: 10px;
+  padding: 5px;
+  margin: 0;
 }
 
 div#zentai > div {
-	margin-left: 5px;
-	background-color: #ffefaf;
+  background-color: #ffefaf;
+  padding: 5px;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 img.sign {
-    float: right;   
-
-    width: 100px;
-    height: 100px;
-    margin: 10px 0 10px 10px;
+  float: right;
+  width: 100px;
+  height: 100px;
+  margin: 10px 0 10px 10px;
 }
-

@@ -1,99 +1,107 @@
 // 課題3-2 のプログラムはこの関数の中に記述すること
 function print(data) {
-  console.log(data.list.g1[0].start_time); 
-  console.log(data.list.g1[0].end_time);
-  console.log(data.list.g1[0].title);
-  console.log(data.list.g1[0].subtitle);
-  console.log(data.list.g1[0].act);
-  console.log(data.list.g1[1].start_time); 
-  console.log(data.list.g1[1].end_time);
-  console.log(data.list.g1[1].title);
-  console.log(data.list.g1[1].subtitle);
-  console.log(data.list.g1[1].act);
+  const key = Object.keys(data.list).find(k => Array.isArray(data.list[k]));
+  if (!key) {
+    console.log('print: 番組データがありません');
+    return;
+  }
+  const arr = data.list[key];
+  for (let i = 0; i < Math.min(arr.length, 2); i++) {
+    const item = arr[i];
+    console.log(item.start_time);
+    console.log(item.end_time);
+    console.log(item.title);
+    console.log(item.subtitle);
+    console.log(item.act);
+  }
 }
 
 // 課題5-1 の関数 printDom() はここに記述すること
 function printDom(data) {
+  const prev = document.getElementById('result');
+  if (prev) prev.remove();
 
-function printDom(data) {
-  const old = document.getElementById('result');
-  if (old) {
-    old.remove();
-  }
-  
-  const result = document.createElement('div');
-  result.id = 'result';
-  document.body.appendChild(result);
+  const container = document.createElement('div');
+  container.id = 'result';
+  document.body.appendChild(container);
 
-  const count = data.list.g1.length;
-  const h3 = document.createElement('h3');
-  h3.textContent = `検索結果は ${count} 件`;
-  result.appendChild(h3);
+  const serviceKey = Object.keys(data.list).find(k => Array.isArray(data.list[k]));
+  const items = serviceKey ? data.list[serviceKey] : [];
 
-  data.list.g1.forEach((item, index) => {
 
+
+  items.forEach((item, idx) => {
     const fs = document.createElement('fieldset');
-    const legend = document.createElement('legend');
-    legend.textContent = `検索結果 ${index + 1} 件目`;
-    fs.appendChild(legend);
+    const lg = document.createElement('legend');
+    lg.textContent = `検索結果 ${idx + 1} 件目`;
+    fs.appendChild(lg);
 
-    function addLine(label, text) {
+    const toLoc = s => new Date(s).toLocaleString();
+    [
+      ['開始時刻', toLoc(item.start_time)],
+      ['終了時刻', toLoc(item.end_time)],
+      ['タイトル', item.title],
+      ['サブタイトル', item.subtitle],
+      ['出演者', item.act || '記載なし']
+    ].forEach(([lbl, txt]) => {
       const p = document.createElement('p');
-      p.textContent = `${label}: ${text}`;
+      p.textContent = `${lbl}: ${txt}`;
       fs.appendChild(p);
-    }
+    });
 
-    const toLocalString = s => new Date(s).toLocaleString();
-
-    addLine('開始時刻', toLocalString(item.start_time));
-    addLine('終了時刻', toLocalString(item.end_time));
-    addLine('タイトル', item.title);
-    addLine('サブタイトル', item.subtitle);
-    addLine('出演者', item.act || '記載なし');
-
-    result.appendChild(fs);
+    container.appendChild(fs);
   });
-}
-
 }
 
 // 課題6-1 のイベントハンドラ登録処理は以下に記述
 document.addEventListener('DOMContentLoaded', () => {
   const btn = document.getElementById('btn');
+  if (!btn) {
+    console.error('ボタン #btn が見つかりません');
+    return;
+  }
   btn.addEventListener('click', sendRequest);
 });
 
 // 課題6-1 のイベントハンドラ sendRequest() の定義
 function sendRequest() {
-    let url = 'https://www.nishita-lab.org/web-contents/jsons/nhk/{service}-{genre}-j.json';
+  const channels = Array.from(document.querySelectorAll('input[name="channel"]:checked')).map(el => el.value);
+  const genres   = Array.from(document.querySelectorAll('input[name="genre"]:checked')).map(el => el.value);
 
-    axios.get(url)
-        .then(showResult)
-        .catch(showError)
-        .then(finish);
+  let service = channels[0];
+  if (service === 'g2') service = 'e1';
+
+  const genre = genres[0];
+  const url = `https://www.nishita-lab.org/web-contents/jsons/nhk/${service}-${genre}-j.json`;
+
+  axios.get(url).then(showResult).catch(showError).then(finish);
 }
 
 // 課題6-1: 通信が成功した時の処理は以下に記述
 function showResult(resp) {
-    let data = resp.data;
-    if (typeof data === 'string') {
+  let data = resp.data;
+  if (typeof data === 'string') {
+    try {
       data = JSON.parse(data);
-          printDom(data);
-
+    } catch (e) {
+      console.error('JSON parse error:', e);
+      return;
     }
-    console.log(data);
-    console.log(data.x);
+  }
+  console.log('service keys:', Object.keys(data.list));
 
+  print(data);
+  printDom(data);
 }
 
 // 課題6-1: 通信エラーが発生した時の処理
 function showError(err) {
-    console.log(err);
+  console.error('通信エラー:', err);
 }
 
 // 課題6-1: 通信の最後にいつも実行する処理
 function finish() {
-    console.log('Ajax 通信が終わりました');
+  console.log('Ajax 通信が終わりました');
 }
 
 ////////////////////////////////////////
